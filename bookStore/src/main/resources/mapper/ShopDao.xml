@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为BookCateDao接口方法提供sql语句配置 -->
+<mapper namespace="com.chenchao.dao.ShopDao">
+    <!-- 对应ShopDao中的findStoreByUserId方法，  -->
+    <select id="findStoreByUserId" resultType="Shop">
+        SELECT * FROM shop where shopManagerId = #{arg0}
+    </select>
+    <!-- 对应ShopDao中的updateByPrimaryKeySelective方法，  -->
+<!--    <insert id="updateByPrimaryKeySelective" parameterType="Shop">-->
+<!--        insert into shop(shopId, shopManagerId, shopPhoneNumber, shopTelephone, shopName, shopPosition, shopCreated, shopUpdated)-->
+<!--        values(#{shopId}, #{shopManagerId}, #{shopPhoneNumber}, #{shopTelephone}, #{shopName}, #{shopPosition}, #{shopCreated}, #{shopUpdated})-->
+<!--    </insert>-->
+
+    <select id="selectAll" resultType="Shop">
+        SELECT * FROM shop
+    </select>
+
+    <select id="selectShopByPrimaryKey" resultType="Shop">
+        SELECT * FROM shop where shopId = #{arg0}
+    </select>
+</mapper>

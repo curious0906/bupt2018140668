@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为BookCateDao接口方法提供sql语句配置 -->
+<mapper namespace="com.chenchao.dao.BookDetailsDao">
+
+    <select id="findBookListByTypeId" resultType="BookDetails">
+        select * from (select * from bookDetails where bookTypeId=#{arg0} order by bookDealMount DESC,bookLookMount DESC) as a limit #{arg1},#{arg2}
+    </select>
+
+    <select id="findBookInfoByStoreId" resultType="BookDetails">
+        SELECT * FROM bookDetails where bookShopId = #{arg0}
+    </select>
+    <select id="queryBookAvailable" resultType="BookDetails">
+        SELECT * FROM bookDetails where bookId = #{arg0}
+    </select>
+</mapper>

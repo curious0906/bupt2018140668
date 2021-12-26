@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chenchao.dao.ShiroDao">
+    <select id="getUserByUserName" resultType="Users">
+        select * FROM user WHERE userUsername = #{arg0}
+    </select>
+
+    <select id="getUserRoleByUserId" resultType="int">
+        SELECT characterId FROM userCharacter where userId = #{arg0}
+    </select>
+
+    <select id="getPermissionsByRoleId" resultType="Permissions">
+        SELECT * FROM permissions where permId in (select permissionsId from characterPermissions where characterId = #{arg0})
+    </select>
+
+</mapper>

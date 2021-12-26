@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为BookCateDao接口方法提供sql语句配置 -->
+<mapper namespace="com.chenchao.dao.OrdersMapper">
+    <insert id="insertOrder" parameterType="OrderForm">
+        insert into orderForm(orderFormId,userId,amountOfRealPay,payType,orderStatus,postage,orderCreateTime,orderUpdateTime,orderAmount,timeOfPayment,transactionCompleteTime,transactionCloseTime,shippingName,shippingCode,buyerMessage,buyerWhetherEvaluated)
+        values(#{orderFormId},#{userId},#{amountOfRealPay},#{payType},#{orderStatus},#{postage},#{orderCreateTime},#{orderUpdateTime},#{orderAmount},#{timeOfPayment},#{transactionCompleteTime},#{transactionCloseTime},#{shippingName},#{shippingCode},#{buyerMessage},#{buyerWhetherEvaluated})
+    </insert>
+    <select id="selectByPrimaryKey" resultType="OrderForm">
+        select * from OrderForm where orderFormId = #{arg0}
+    </select>
+
+</mapper>

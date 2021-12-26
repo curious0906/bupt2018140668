@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为BookCateDao接口方法提供sql语句配置 -->
+<mapper namespace="com.chenchao.dao.StackRoomDao">
+    <!-- 对应ShopDao中的updateByPrimaryKeySelective方法，  -->
+<!--    <insert id="insert" parameterType="StackRoom">-->
+<!--        insert into stackRoom(stackBookId, stackBookTypeId, stackBookShopId, stackBookName, stackBookOutline, stackBookDetail, stackBookPress,-->
+<!--                              stackBookPublishDate, stackBookSize, stackBookVersion, stackBookAuthor, stackBookTranslator, stackBookIsbn, stackBookPrice,-->
+<!--                              stackBookPages, stackBookCatalog, stackBookMarketPrice, stackBookMemberPrice, stackBookDealMount, stackBookLookMount, stackBookDiscount-->
+<!--                              , stackBookImageUrl, stackBookShopMount, stackBookShopTime, stackBookPackStyle, stackBookIsShelf)-->
+<!--        values(#{stackBookId}, #{stackBookTypeId}, #{stackBookShopId}, #{stackBookName}, #{stackBookOutline}, #{stackBookDetail}, #{stackBookPress}, #{stackBookPublishDate},-->
+<!--               #{stackBookSize}, #{stackBookVersion}, #{stackBookAuthor}, #{stackBookTranslator}, #{stackBookIsbn}, #{stackBookPrice}, #{stackBookPages}, #{stackBookCatalog})-->
+<!--            #{stackBookMarketPrice}, #{stackBookMemberPrice}, #{stackBookDealMount}, #{stackBookLookMount}, #{stackBookDiscount}, #{stackBookImageUrl}, #{stackBookShopMount}, #{stackBookShopTime},-->
+<!--            #{stackBookPackStyle}, #{stackBookIsShelf})-->
+<!--    </insert>-->
+
+</mapper>

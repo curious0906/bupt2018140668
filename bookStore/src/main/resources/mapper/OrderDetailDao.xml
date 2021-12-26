@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为BookCateDao接口方法提供sql语句配置 -->
+<mapper namespace="com.chenchao.dao.OrderDetailMapper">
+
+
+    <insert id="insertOrder" parameterType="OrderParticulars">
+        insert into orderParticulars(orderCode,orderFormId,bookId,shopId,sellQuantity,pricePerUnit,totalPrice,paymentAndDeliveryStatus,shoppingTime,receivingStatus,imageUrl,bookName)
+        values(#{orderCode},#{orderFormId},#{bookId},#{shopId},#{sellQuantity},#{pricePerUnit},#{totalPrice},#{paymentAndDeliveryStatus},#{shoppingTime},#{receivingStatus},#{imageUrl},#{bookName})
+    </insert>
+    <select id="selectByOrderId" resultType="OrderParticulars">
+        select * from orderParticulars where orderFormId = #{arg0}
+    </select>
+</mapper>

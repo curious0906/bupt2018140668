@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenchao.dao.custom.CustomMapper">
+
+  <!-- 订单表和订单详情表关联查询结果集 -->
+  <resultMap id="ordersResultMap" type="com.chenchao.model.custom.OrderCustom">
+    <!--
+      自定义mapper，完成多表查询
+    -->
+    <id column="orderFormId" jdbcType="VARCHAR" property="orderFormId" />
+    <!-- 一对一 -->
+    <association property="orderForm" javaType="com.chenchao.model.OrderForm">
+      <id column="orderFormId" jdbcType="VARCHAR" property="orderFormId" />
+      <result column="userId" jdbcType="INTEGER" property="userId" />
+      <result column="amountOfRealPay" jdbcType="VARCHAR" property="amountOfRealPay" />
+      <result column="payType" jdbcType="INTEGER" property="payType" />
+      <result column="orderStatus" jdbcType="VARCHAR" property="orderStatus" />
+      <result column="postage" jdbcType="VARCHAR" property="postage" />
+      <result column="orderCreateTime" jdbcType="TIMESTAMP" property="orderCreateTime" />
+      <result column="orderUpdateTime" jdbcType="TIMESTAMP" property="orderUpdateTime" />
+      <result column="orderAmount" jdbcType="INTEGER" property="orderAmount" />
+      <result column="timeOfPayment" jdbcType="TIMESTAMP" property="timeOfPayment" />
+      <result column="transactionCompleteTime" jdbcType="TIMESTAMP" property="transactionCompleteTime" />
+      <result column="transactionCloseTime" jdbcType="TIMESTAMP" property="transactionCloseTime" />
+      <result column="shippingName" jdbcType="VARCHAR" property="shippingName" />
+      <result column="shippingCode" jdbcType="VARCHAR" property="shippingCode" />
+      <result column="buyerMessage" jdbcType="VARCHAR" property="buyerMessage" />
+      <result column="buyerWhetherEvaluated" jdbcType="INTEGER" property="buyerWhetherEvaluated" />
+    </association>
+
+    <association property="orderDelivery" javaType="com.chenchao.model.OrderDelivery">
+      <id column="orderFormId" jdbcType="VARCHAR" property="orderFormId" />
+      <result column="deliveryName" jdbcType="VARCHAR" property="deliveryName" />
+      <result column="deliveryPhone" jdbcType="VARCHAR" property="deliveryPhone" />
+      <result column="deliveryMobile" jdbcType="VARCHAR" property="deliveryMobile" />
+      <result column="deliveryState" jdbcType="VARCHAR" property="deliveryState" />
+      <result column="deliveryCity" jdbcType="VARCHAR" property="deliveryCity" />
+      <result column="deliveryDistrictCounty" jdbcType="VARCHAR" property="deliveryDistrictCounty" />
+      <result column="deliveryAddress" jdbcType="VARCHAR" property="deliveryAddress" />
+      <result column="deliveryZipCode" jdbcType="VARCHAR" property="deliveryZipCode" />
+      <result column="orderDeliveryCreated" jdbcType="TIMESTAMP" property="orderDeliveryCreated" />
+      <result column="orderDeliveryUpdated" jdbcType="TIMESTAMP" property="orderDeliveryUpdated" />
+    </association>
+
+
+    <!-- 一对多关联映射 -->
+    <collection property="orderParticularsList" ofType="com.chenchao.model.OrderParticulars">
+
+      <id column="orderParticularsId" jdbcType="INTEGER" property="orderParticularsId" />
+      <result column="orderCode" jdbcType="VARCHAR" property="orderCode" />
+      <result column="orderFormId" jdbcType="VARCHAR" property="orderFormId" />
+      <result column="bookId" jdbcType="INTEGER" property="bookId" />
+      <result column="shopId" jdbcType="INTEGER" property="shopId" />
+      <result column="sellQuantity" jdbcType="INTEGER" property="sellQuantity" />
+      <result column="pricePerUnit" jdbcType="DECIMAL" property="pricePerUnit" />
+      <result column="totalPrice" jdbcType="DECIMAL" property="totalPrice" />
+      <result column="paymentAndDeliveryStatus" jdbcType="VARCHAR" property="paymentAndDeliveryStatus" />
+      <result column="shoppingTime" jdbcType="TIMESTAMP" property="shoppingTime" />
+      <result column="receivingStatus" jdbcType="VARCHAR" property="receivingStatus" />
+      <result column="imageUrl" jdbcType="VARCHAR" property="imageUrl" />
+      <result column="bookName" jdbcType="VARCHAR" property="bookName" />
+    </collection>
+
+  </resultMap>
+
+  <select id="findOrdersByUserId" parameterType="int" resultMap="ordersResultMap">
+
+    SELECT
+      o.orderFormId,
+      o.userId,
+      o.amountOfRealPay,
+      o.payType,
+      o.orderStatus,
+      o.postage,
+      o.orderCreateTime,
+      o.orderUpdateTime,
+      o.orderAmount,
+      o.timeOfPayment,
+      o.transactionCompleteTime,
+      o.transactionCloseTime,
+      o.shippingName,
+      o.shippingCode,
+      o.buyerMessage,
+      o.buyerWhetherEvaluated,
+      os.orderFormId,
+      os.deliveryName,
+      os.deliveryPhone,
+      os.deliveryMobile,
+      os.deliveryState,
+      os.deliveryCity,
+      os.deliveryDistrictCounty,
+      os.deliveryAddress,
+      os.deliveryZipCode,
+      os.orderDeliveryCreated,
+      os.orderDeliveryUpdated,
+      od.orderParticularsId,
+      od.orderCode,
+      od.orderFormId,
+      od.bookId,
+      od.shopId,
+      od.sellQuantity,
+      od.pricePerUnit,
+      od.totalPrice,
+      od.paymentAndDeliveryStatus,
+      od.shoppingTime,
+      od.receivingStatus,
+      od.imageUrl,
+      od.bookName
+    FROM
+     (`orderForm` o INNER JOIN `orderDelivery` os ON o.orderFormId = os.orderFormId)
+      INNER JOIN `orderParticulars` od ON o.orderFormId = od.orderFormId AND o.userId = #{userId}
+
+  </select>
+
+  <select id="findOrdersByStoreId" parameterType="int" resultMap="ordersResultMap">
+
+    SELECT
+      o.orderFormId,
+      o.userId,
+      o.amountOfRealPay,
+      o.payType,
+      o.orderStatus,
+      o.postage,
+      o.orderCreateTime,
+      o.orderUpdateTime,
+      o.orderAmount,
+      o.timeOfPayment,
+      o.transactionCompleteTime,
+      o.transactionCloseTime,
+      o.shippingName,
+      o.shippingCode,
+      o.buyerMessage,
+      o.buyerWhetherEvaluated,
+      os.orderFormId,
+      os.deliveryName,
+      os.deliveryPhone,
+      os.deliveryMobile,
+      os.deliveryState,
+      os.deliveryCity,
+      os.deliveryDistrictCounty,
+      os.deliveryAddress,
+      os.deliveryZipCode,
+      os.orderDeliveryCreated,
+      os.orderDeliveryUpdated,
+      od.orderParticularsId,
+      od.orderCode,
+      od.orderFormId,
+      od.bookId,
+      od.shopId,
+      od.sellQuantity,
+      od.pricePerUnit,
+      od.totalPrice,
+      od.paymentAndDeliveryStatus,
+      od.shoppingTime,
+      od.receivingStatus,
+      od.imageUrl,
+      od.bookName
+    FROM
+     (`orderForm` o INNER JOIN `orderDelivery` os ON o.orderFormId = os.orderFormId)
+      INNER JOIN `orderParticulars` od ON o.orderFormId = od.orderFormId AND od.shopId = #{storeId}
+
+  </select>
+
+  <!--用户所属角色查询-->
+  <select id="findRolesByUserId" parameterType="int" resultType="com.chenchao.model.CharacterAlter">
+
+    SELECT
+      r.characterId AS characterId,
+      r.characterName,
+      r.characterCode,
+      r.characterDescription,
+      r.characterCreated,
+      r.characterUpdated
+    FROM
+      `userCharacter` ur
+    INNER JOIN `characterAlter` r ON ur.characterId = r.characterId AND ur.userId = #{userId}
+
+  </select>
+
+  <!--角色拥有的权限列表-->
+  <select id="findPrivilegesByRoleId" parameterType="int" resultType="com.chenchao.model.Permissions">
+
+    SELECT
+      p.permId AS permId,
+      p.permName,
+      p.permCode,
+      p.permUrl,
+      p.permParentId AS permParentId,
+      p.permIsParent AS permIsParent,
+      p.permCreated,
+      p.permUpdated
+    FROM
+      `characterPermissions` rp
+    INNER JOIN `permissions` p ON rp.permissionsId = p.permId AND rp.characterId = #{roleId}
+
+  </select>
+
+  <!--查询商家类型的用户-->
+  <select id="findBusinesses" parameterType="int" resultType="com.chenchao.model.Users">
+
+    SELECT
+      u.userId as userId,
+      u.userUsername,
+      u.userNickname,
+      u.userPassword,
+      u.userGender,
+      u.userEmail,
+      u.userPhone,
+      u.userPostalCode as userPostalCode,
+      u.userAddress,
+      u.userDetailAddress as userDetailAddress,
+      u.userIdentity,
+      u.whetherOrNoActive,
+      u.userCode,
+      u.userUpdated,
+      u.userCreated
+    FROM
+      `user` u
+    INNER JOIN `userCharacter` ur ON u.userId = ur.userId AND u.whetherOrNoActive = 1 AND (ur.characterId = #{role_id} OR ur.characterId = 1)
+
+  </select>
+
+</mapper>

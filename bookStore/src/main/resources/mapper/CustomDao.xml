@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为BookCateDao接口方法提供sql语句配置 -->
+<mapper namespace="com.chenchao.dao.custom.CustomMapper">
+
+    <select id="findCharacterByUserId" resultType="CharacterAlter">
+        SELECT * FROM characterAlter where characterId in (select characterId from userCharacter where userId = #{arg0})
+    </select>
+
+    <select id="findPermissionsByRoleId" resultType="Permissions">
+        SELECT * FROM permissions where permId in (select permissionsId from characterPermissions where characterId = #{arg0})
+    </select>
+</mapper>
